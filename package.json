@@ -7,7 +7,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build"
   },
   "dependencies": {
     "change-case": "^5.4.4",
@@ -15,6 +16,7 @@
     "uhtml": "^5.0.9"
   },
   "devDependencies": {
+    "terser": "^5.44.1",
     "vite": "^7.3.0"
   }
 }
