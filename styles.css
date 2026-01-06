@@ -1,0 +1,172 @@
+body {
+  font-family: Ubuntu;
+  background-color: #111;
+  color: #eee;
+  font-size: 24px;
+  line-height: 32px;
+  margin: 0;
+
+  .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+  }
+
+  h1, p {
+    margin: 0 0 15px 0;
+  }
+
+  .progress {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: #333;
+
+    .bar {
+      background-color: MediumSlateBlue;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  .legend {
+    background-color: #111;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    top: 5px;
+    position: sticky;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #999;
+    gap: 10px;
+
+    span {
+      margin-right: 5px;
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-top: -2px;
+    }
+
+    .mastered span {
+      background-color: MediumSlateBlue;
+    }
+
+    .markedForLearning span {
+      background-color: MediumVioletRed;
+    }
+  }
+
+  main {
+    max-width: 900px;
+    margin: 20px auto 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: justify;
+
+    .highlight {
+      cursor: pointer;
+      background-color: MediumSlateBlue;
+      border-radius: 3px;
+    }
+
+    .highlight.mastered {
+      background-color: transparent;
+    }
+
+    .highlight.learning {
+      background-color: MediumVioletRed;
+    }
+  }
+
+  dialog {
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgb(0, 0, 0, .2);
+    max-width: 600px;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    outline: none;
+    background-color: #222;
+    font-size: 16px;
+    line-height: 24px;
+    color: #eee;
+
+    header {
+      padding: 10px;
+      background-color: rgba(255, 255, 255, .05);
+      display: flex;
+
+      h1 {
+        margin: 0;
+        font-size: 18px;
+        line-height: 26px;
+        text-transform: uppercase;
+      }
+
+      span {
+        margin-left: auto;
+        cursor: pointer;
+      }
+    }
+
+    .content {
+      max-height: calc(80vh - 70px);
+      overflow-y: scroll;
+      outline: none;
+      position: relative;
+
+      .variant {
+        border-top: 1px solid rgba(255, 255, 255, .1);
+        padding: 10px;
+        display: flex;
+        color: #999;
+
+        p {
+          margin: 0;
+        }
+
+        strong {
+          color: #eee;
+        }
+
+        span {
+          margin-left: auto;
+        }
+      }
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+    }
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, .5);
+  }
+
+  .button {
+    background-color: orangered;
+    border-radius: 3px;
+    padding: 3px 8px;
+    text-align: center;
+  }
+
+  .button.full {
+    width: 100%;
+  }
+}
