@@ -29,7 +29,8 @@ document.querySelector('main').innerHTML = book()
     const match = wordsWithRoot.find(record => record.word === word.toLowerCase())
     if (match) {
       const { index, root } = match;
-      return `<a class="highlight" data-index="${index}" data-root="${root}">${word}</a>`;
+      // Tabindex disables Google popup at the bottom on mobile
+      return `<a class="highlight" tabindex="-1" data-index="${index}" data-root="${root}">${word}</a>`;
     }
     return word;
   })
