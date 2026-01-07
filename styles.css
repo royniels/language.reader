@@ -18,6 +18,16 @@ body {
     margin: 0 0 15px 0;
   }
 
+  input {
+    border: 1px solid #111;
+    outline: none;
+    background-color: rgba(0, 0, 0, .2);
+    padding: 5px;
+    border-radius: 3px;
+    width: 100%;
+    color: #eee;
+  }
+
   .progress {
     position: sticky;
     top: 0;
@@ -56,6 +66,12 @@ body {
       border-radius: 50%;
       vertical-align: middle;
       margin-top: -2px;
+    }
+
+    a {
+      margin-left: auto;
+      color: MediumSlateBlue;
+      cursor: pointer;
     }
 
     .mastered span {
@@ -107,6 +123,7 @@ body {
       padding: 10px;
       background-color: rgba(255, 255, 255, .05);
       display: flex;
+      gap: 10px;
 
       h1 {
         margin: 0;
@@ -160,11 +177,19 @@ body {
     background: rgba(0, 0, 0, .8);
   }
 
+  dialog.gemini {
+    .content {
+      color: #999;
+      padding: 10px;
+    }
+  }
+
   .button {
-    background-color: orangered;
+    background-color: MediumSeaGreen;
     border-radius: 3px;
     padding: 3px 8px;
     text-align: center;
+    cursor: pointer;
   }
 
   .button.full {

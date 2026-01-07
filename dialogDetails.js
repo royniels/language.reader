@@ -1,5 +1,7 @@
 import { capitalCase } from 'change-case';
 import { html, render } from 'uhtml';
+import { get } from './localStorage.js';
+import dialogGemini from './dialogGemini.js';
 
 export default ({ selected, variants }) => {
   const container = document.querySelector('.dialogContainer');
@@ -19,10 +21,21 @@ export default ({ selected, variants }) => {
         </div>
         ${variants.map(renderVariant)}
       </div>
+      ${renderFooter()}
     </dialog>
   `);
 
   show();
+
+  function renderFooter() {
+    if (get('geminiApiKey')) {
+      return html`
+        <footer>
+          <a class="button full" onclick="${() => dialogGemini(selected.word)}">Explain this word (Gemini)</a>
+        </footer>
+      `;
+    }
+  }
 
   function renderVariant({ variant, count }) {
     return html`<div class="variant">${capitalCase(variant)}<span>${count}</span></div>`;

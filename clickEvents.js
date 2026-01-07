@@ -5,7 +5,7 @@ export default callback => {
   let startX, startY;
 
   const doubleClickDelay = 250;
-  const longPressDuration = 500;
+  // const longPressDuration = 500;
   const moveThreshold = 8;
 
   const cancelAll = () => {
@@ -26,10 +26,10 @@ export default callback => {
     startY = event.clientY;
     isLongPress = false;
 
-    timer = setTimeout(() => {
-      isLongPress = true;
-      handleAction(event, instance, 'long');
-    }, longPressDuration);
+    // timer = setTimeout(() => {
+    //   isLongPress = true;
+    //   handleAction(event, instance, 'long');
+    // }, longPressDuration);
   });
 
   document.addEventListener('pointermove', event => {

@@ -1,16 +1,21 @@
 import { Stemmer, Tokenizer } from 'sastrawijs'
 import { get, set } from './localStorage.js';
 import { html, render } from 'uhtml';
-import book from './book.js';
+import book from './testBook.js';
 import clickEvents from './clickEvents.js';
-import dialog from './dialog.js';
+import dialogDetails from './dialogDetails.js';
+import gemini from './gemini.js';
+import dialogGeminiKey from './dialogGeminiKey.js';
 
 if (!Array.isArray(get('mastered'))) {
   set('mastered', []);
 }
-if (!Array.isArray(get('learning'))) {
-  set('learning', []);
-}
+// if (!Array.isArray(get('learning'))) {
+//   set('learning', []);
+// }
+
+// const response = await gemini('kenal');
+// console.log(response);
 
 const plainText = book();
 const stemmer = new Stemmer();
@@ -42,9 +47,9 @@ clickEvents((instance, type) => {
   if (type === 'single') {
     toggleWordMastered({ index, root });
   } else if (type === 'double') {
-    toggleMarkForLearning({ index, root });
-  } else if (type === 'long') {
     showDetails({ index, root });
+  } else if (type === 'long') {
+    // toggleMarkForLearning({ index, root });
   }
 });
 
@@ -66,30 +71,30 @@ function toggleWordMastered({ root }) {
   updateLegend();
 }
 
-function toggleMarkForLearning({ root }) {
-  const learning = get('learning');
-  const mastered = get('mastered');
-  const instances = document.querySelectorAll(`[data-root="${root}"]`);
-  // Unmark it as learned, will also mark it as mastered
-  if (learning.includes(root)) {
-    instances.forEach(instance => {
-      instance.classList.add('mastered');
-      instance.classList.remove('learning');
-    });
-    set('learning', learning.filter(word => word !== root));
-    set('mastered', [...new Set([...mastered, root])]);
-    // Mark it as learning, will also unmark it as mastered
-  } else {
-    instances.forEach(instance => {
-      instance.classList.remove('mastered');
-      instance.classList.add('learning');
-    });
-    set('learning', [...learning, root]);
-    set('mastered', mastered.filter(word => word !== root));
-  }
-  updateProgress();
-  updateLegend();
-}
+// function toggleMarkForLearning({ root }) {
+//   const learning = get('learning');
+//   const mastered = get('mastered');
+//   const instances = document.querySelectorAll(`[data-root="${root}"]`);
+//   // Unmark it as learned, will also mark it as mastered
+//   if (learning.includes(root)) {
+//     instances.forEach(instance => {
+//       instance.classList.add('mastered');
+//       instance.classList.remove('learning');
+//     });
+//     set('learning', learning.filter(word => word !== root));
+//     set('mastered', [...new Set([...mastered, root])]);
+//     // Mark it as learning, will also unmark it as mastered
+//   } else {
+//     instances.forEach(instance => {
+//       instance.classList.remove('mastered');
+//       instance.classList.add('learning');
+//     });
+//     set('learning', [...learning, root]);
+//     set('mastered', mastered.filter(word => word !== root));
+//   }
+//   updateProgress();
+//   updateLegend();
+// }
 
 function showDetails({ root, index }) {
   const selected = wordsWithRoot.find(record => record.index === index);
@@ -99,22 +104,22 @@ function showDetails({ root, index }) {
     const count = filtered.filter(({ word }) => word === variant).length;
     return { variant, count };
   });
-  dialog({ selected, variants: variantsWithCount });
+  dialogDetails({ selected, variants: variantsWithCount });
 }
 
 function initializeHighlights() {
   const mastered = get('mastered');
-  const learning = get('learning');
+  // const learning = get('learning');
   mastered.forEach(root => {
-    if (!learning.includes(root)) {
-      document.querySelectorAll(`[data-root="${root}"]`)
-        .forEach(instance => instance.classList.add('mastered'));
-    }
-  });
-  learning.forEach(root => {
+    // if (!learning.includes(root)) {
     document.querySelectorAll(`[data-root="${root}"]`)
-      .forEach(instance => instance.classList.add('learning'));
+      .forEach(instance => instance.classList.add('mastered'));
+    // }
   });
+  // learning.forEach(root => {
+  //   document.querySelectorAll(`[data-root="${root}"]`)
+  //     .forEach(instance => instance.classList.add('learning'));
+  // });
 }
 
 function updateProgress() {
@@ -130,15 +135,22 @@ function updateProgress() {
 function updateLegend() {
   const total = wordsWithRoot.length;
   const mastered = [...document.querySelectorAll('.highlight.mastered')].length;
-  const learning = [...document.querySelectorAll('.highlight.learning')]
-    .map(instance => instance.getAttribute('data-root'));
+  // const learning = [...document.querySelectorAll('.highlight.learning')]
+  // .map(instance => instance.getAttribute('data-root'));
 
   render(document.querySelector('.legend'), html`
     <div class="mastered">
       <span></span> Words mastered (${mastered.toLocaleString()}/${total.toLocaleString()})
     </div>
-    <div class="markedForLearning">
-      <span></span> Marked for learning (${[...new Set(learning)].length})
-    </div>
+    <a onclick="${dialogGeminiKey}">Add Gemini Key</a>
   `);
+
+  // render(document.querySelector('.legend'), html`
+  //   <div class="mastered">
+  //     <span></span> Words mastered (${mastered.toLocaleString()}/${total.toLocaleString()})
+  //   </div>
+  //   <div class="markedForLearning">
+  //     <span></span> Marked for learning (${[...new Set(learning)].length})
+  //   </div>
+  // `);
 }
