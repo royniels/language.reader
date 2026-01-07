@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
+import { get } from "./localStorage";
 
-const ai = new GoogleGenAI({ apiKey: 'AIzaSyAbypjP5hOxISxCmXJSvjNEhKDQMUvVtx0' });
+const ai = new GoogleGenAI({ apiKey: get('geminiApiKey') });
 
 export default async word => {
   const response = await ai.models.generateContent({

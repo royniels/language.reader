@@ -35,6 +35,7 @@ export default ({ selected, variants }) => {
         </footer>
       `;
     }
+    return html``;
   }
 
   function renderVariant({ variant, count }) {
