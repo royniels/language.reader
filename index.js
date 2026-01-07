@@ -1,7 +1,7 @@
 import { Stemmer, Tokenizer } from 'sastrawijs'
 import { get, set } from './localStorage.js';
 import { html, render } from 'uhtml';
-import book from './testBook.js';
+import book from './book.js';
 import clickEvents from './clickEvents.js';
 import dialog from './dialog.js';
 
