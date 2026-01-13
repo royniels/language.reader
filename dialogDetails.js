@@ -1,11 +1,17 @@
 import { capitalCase } from 'change-case';
 import { html, render } from 'uhtml';
-import { get } from './localStorage.js';
-import dialogGemini from './dialogGemini.js';
+import { get, set } from './localStorage.js';
+import gemini from './gemini';
+import { marked } from 'marked';
+import { params } from 'tag-params';
 
-export default ({ selected, variants }) => {
+export default async ({ selected, variants, toggleMarkForLearning }) => {
   const container = document.querySelector('.dialogContainer');
   const total = variants.map(({ count }) => count).reduce((sum, value) => sum + value, 0);
+
+  if (!get('geminiCache')) {
+    set('geminiCache', {});
+  }
 
   render(container, html``);
   render(container, html`
@@ -20,22 +26,44 @@ export default ({ selected, variants }) => {
           <span><strong>${total}</strong></span>
         </div>
         ${variants.map(renderVariant)}
+        <div class="geminiContainer">
+          Loading additional information...
+        </div>
       </div>
-      ${renderFooter()}
+      <footer>
+        <a class="button full" onclick="${learningList}">${getLabel()}</a>
+      </footer>
     </dialog>
   `);
 
   show();
 
-  function renderFooter() {
-    if (get('geminiApiKey')) {
-      return html`
-        <footer>
-          <a class="button full" onclick="${() => dialogGemini(selected.word)}">Explain this word (Gemini)</a>
-        </footer>
-      `;
+  if (get('geminiApiKey')) {
+    const geminiCache = get('geminiCache');
+    if (!get('geminiCache')[selected.word]) {
+      geminiCache[selected.word] = await gemini(selected.word);
+      set('geminiCache', geminiCache);
     }
-    return html``;
+
+    render(container.querySelector('dialog .geminiContainer'), html`
+      ${html(...params(marked.parse(geminiCache[selected.word])))}
+    `);
+  } else {
+    render(container.querySelector('dialog .geminiContainer'), html`
+      Additional information requires a Gemini key
+    `)
+  }
+
+  function getLabel() {
+    const learning = get('learning');
+    return learning.includes(selected.root)
+      ? 'Remove from learning list'
+      : 'Add to learning list';
+  }
+
+  function learningList() {
+    toggleMarkForLearning({ root: selected.root });
+    hide();
   }
 
   function renderVariant({ variant, count }) {

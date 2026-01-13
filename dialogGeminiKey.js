@@ -6,7 +6,7 @@ export default () => {
 
   render(container, html``);
   render(container, html`
-    <dialog>
+    <dialog class="geminiKey">
       <header>
         <h1>Add Gemini Key</h1>
         <span class="material-symbols-outlined" onclick="${hide}">cancel</span>

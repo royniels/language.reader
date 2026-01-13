@@ -94,6 +94,7 @@ body {
       cursor: pointer;
       background-color: MediumSlateBlue;
       border-radius: 3px;
+      outline: none;
     }
 
     .highlight.mastered {
@@ -109,6 +110,7 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 20px rgb(0, 0, 0, .2);
     max-width: 600px;
+    min-width: 400px;
     border: 0;
     padding: 0;
     overflow: hidden;
@@ -163,6 +165,31 @@ body {
           margin-left: auto;
         }
       }
+
+      .geminiContainer {
+        padding: 15px;
+        color: #999;
+        border-top: 1px solid rgba(255, 255, 255, .1);
+        font-size: 14px;
+
+        hr {
+          border-width: 1px 0 0 0;
+          border-color: #ccc;
+        }
+
+        table {
+          color: #999;
+          border-collapse: collapse;
+          width: 100%;
+          font-size: 14px;
+
+          th,
+          td {
+            padding: 5px;
+            border: 1px solid #666;
+          }
+        }
+      }
     }
 
     footer {
@@ -177,9 +204,8 @@ body {
     background: rgba(0, 0, 0, .8);
   }
 
-  dialog.gemini {
+  dialog.geminiKey {
     .content {
-      color: #999;
       padding: 10px;
     }
   }
