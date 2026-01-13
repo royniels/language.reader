@@ -133,10 +133,10 @@ function updateLegend() {
 
   render(document.querySelector('.legend'), html`
     <div class="mastered">
-      <span></span> Words mastered (${mastered.toLocaleString()}/${total.toLocaleString()})
+      <span></span> Mastered (${mastered.toLocaleString()}/${total.toLocaleString()})
     </div>
     <div class="markedForLearning">
-      <span></span> Marked for learning (${[...new Set(learning)].length})
+      <span></span> Learning list (${[...new Set(learning)].length})
     </div>
   `);
 }
