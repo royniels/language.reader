@@ -136,15 +136,9 @@ function updateLegend() {
     <div class="mastered">
       <span></span> Words mastered (${mastered.toLocaleString()}/${total.toLocaleString()})
     </div>
-    <a onclick="${dialogGeminiKey}">Add Gemini Key</a>
-  `);
-
-  render(document.querySelector('.legend'), html`
-    <div class="mastered">
-      <span></span> Words mastered (${mastered.toLocaleString()}/${total.toLocaleString()})
-    </div>
     <div class="markedForLearning">
       <span></span> Marked for learning (${[...new Set(learning)].length})
     </div>
+    <a onclick="${dialogGeminiKey}">Add Gemini Key</a>
   `);
 }
