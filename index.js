@@ -4,7 +4,6 @@ import { html, render } from 'uhtml';
 import book from './book.js';
 import clickEvents from './clickEvents.js';
 import dialogDetails from './dialogDetails.js';
-import dialogGeminiKey from './dialogGeminiKey.js';
 
 if (!Array.isArray(get('mastered'))) {
   set('mastered', []);
@@ -139,6 +138,5 @@ function updateLegend() {
     <div class="markedForLearning">
       <span></span> Marked for learning (${[...new Set(learning)].length})
     </div>
-    <a onclick="${dialogGeminiKey}">Add Gemini Key</a>
   `);
 }

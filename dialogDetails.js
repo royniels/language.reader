@@ -4,6 +4,7 @@ import { get, set } from './localStorage.js';
 import gemini from './gemini';
 import { marked } from 'marked';
 import { params } from 'tag-params';
+import dialogGeminiKey from './dialogGeminiKey.js';
 
 export default async ({ selected, variants, toggleMarkForLearning }) => {
   const container = document.querySelector('.dialogContainer');
@@ -50,7 +51,7 @@ export default async ({ selected, variants, toggleMarkForLearning }) => {
     `);
   } else {
     render(container.querySelector('dialog .geminiContainer'), html`
-      Additional information requires a Gemini key
+      <a class="addKey" onclick="${dialogGeminiKey}">Add Gemini Key</a>
     `)
   }
 
